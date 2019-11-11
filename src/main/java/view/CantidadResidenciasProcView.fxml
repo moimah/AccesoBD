@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="600.0" prefWidth="800.0">
+         <children>
+            <Label layoutX="264.0" layoutY="90.0" text="Cantidad de residencias">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtPrecioMaximo" layoutX="403.0" layoutY="198.0" />
+            <Label layoutX="217.0" layoutY="165.0" text="Selecciona universidad">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="218.0" layoutY="200.0" text="Precio máximo">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="cmbUniversidad" layoutX="403.0" layoutY="160.0" prefHeight="25.0" prefWidth="149.0" promptText="Universidad" />
+            <Button fx:id="btnBuscar" disable="true" layoutX="343.0" layoutY="250.0" mnemonicParsing="false" onAction="#clickBtnRegistrar" prefHeight="50.0" prefWidth="120.0" text="Buscar" />
+            <Label fx:id="lblNumeroUniversidades" layoutX="184.0" layoutY="320.0" prefHeight="21.0" prefWidth="470.0" textFill="#ff1c1c">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblPrecioInferior" layoutX="183.0" layoutY="351.0" prefHeight="21.0" prefWidth="470.0" textFill="#ff1c1c">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>

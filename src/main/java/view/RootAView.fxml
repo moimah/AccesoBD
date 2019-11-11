@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+
+<TabPane fx:id="root" maxHeight="800.0" maxWidth="1000.0" minHeight="640.0" minWidth="750.0" prefHeight="640.0" prefWidth="750.0" scaleShape="false" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+        <tabs>
+          <Tab fx:id="tabVisualizarResidencias" text="Visualizar residencias" /> 
+           <Tab fx:id="tabRegistrarResidencias" text="Registrar residencias" />                  
+            <Tab fx:id="tabEliminarResidencia" text="Eliminar residencia" /> 
+             <Tab fx:id="tabModificarResidencia" text="Modificar residencia" /> 
+             <!-- Aqui los tabs de procedimientos -->
+              <Tab fx:id="tabRegistrarProc" text="Registrar(Proc)" />
+               <Tab fx:id="tabVisualizarEstanciasProc" text="Visualizar estancias(Proc)" />
+                <Tab fx:id="tabCantidadResidenciasProc" text="Visualizar cantidad residencias(Proc)" />           
+        </tabs>
+      </TabPane>

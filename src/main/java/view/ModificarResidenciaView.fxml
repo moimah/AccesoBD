@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="600.0" prefWidth="800.0">
+         <children>
+            <ComboBox fx:id="cmbResidencia" layoutX="414.0" layoutY="176.0" prefHeight="25.0" prefWidth="149.0" promptText="Residencia" />
+            <Label layoutX="300.0" layoutY="93.0" text="Modificar residencia">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Label>
+            <Label layoutX="228.0" layoutY="178.0" text="Selecciona una residencia">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnModificar" disable="true" layoutX="348.0" layoutY="395.0" mnemonicParsing="false" onAction="#clickBtnModificar" prefHeight="50.0" prefWidth="120.0" text="Modificar" />
+            <Button fx:id="btnOk" layoutX="581.0" layoutY="176.0" mnemonicParsing="false" text="Ok" />
+            <ComboBox fx:id="cmbUniversidad" layoutX="411.0" layoutY="330.0" prefHeight="25.0" prefWidth="149.0" promptText="Universidad" />
+            <TextField fx:id="txtNombreResidencia" layoutX="408.0" layoutY="221.0" />
+            <TextField fx:id="txtPrecioMensual" layoutX="408.0" layoutY="257.0" />
+            <Label layoutX="229.0" layoutY="224.0" text="Nombre residencia">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="229.0" layoutY="257.0" text="Precio mensual">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <RadioButton fx:id="rdComedorSi" layoutX="412.0" layoutY="294.0" mnemonicParsing="false" text="Si">
+               <toggleGroup>
+                  <ToggleGroup fx:id="groupComedor" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="rdComedorNo" layoutX="471.0" layoutY="294.0" mnemonicParsing="false" selected="true" text="No">
+               <toggleGroup>
+                  <ToggleGroup fx:id="groupComedor" />
+               </toggleGroup>
+            </RadioButton>
+            <Label layoutX="229.0" layoutY="290.0" text="Comedor">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>
