@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="root" alignment="CENTER" fillWidth="false" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane prefHeight="600.0" prefWidth="800.0">
          <children>
@@ -35,7 +35,7 @@
             </Label>
             <Button fx:id="btnBuscar" layoutX="427.0" layoutY="143.0" mnemonicParsing="false" onAction="#cickBtnBuscar" text="Buscar estancias" />
             <Button fx:id="btnTiempoHospedado" layoutX="548.0" layoutY="143.0" mnemonicParsing="false" onAction="#clickBtnTiempoHospedado" text="Tiempo hospedado" />
-            <Label fx:id="lblTiempoHospedado" layoutX="280.0" layoutY="188.0" prefHeight="21.0" prefWidth="294.0" textFill="#dd3019">
+            <Label fx:id="lblTiempoHospedado" layoutX="280.0" layoutY="188.0" prefHeight="21.0" prefWidth="294.0" textFill="#54bf3c">
                <font>
                   <Font size="18.0" />
                </font></Label>

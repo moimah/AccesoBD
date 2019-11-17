@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="root" alignment="CENTER" fillWidth="false" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane prefHeight="600.0" prefWidth="800.0">
          <children>
@@ -30,12 +30,12 @@
             </Label>
             <ComboBox fx:id="cmbUniversidad" layoutX="403.0" layoutY="160.0" prefHeight="25.0" prefWidth="149.0" promptText="Universidad" />
             <Button fx:id="btnBuscar" disable="true" layoutX="343.0" layoutY="250.0" mnemonicParsing="false" onAction="#clickBtnRegistrar" prefHeight="50.0" prefWidth="120.0" text="Buscar" />
-            <Label fx:id="lblNumeroUniversidades" layoutX="184.0" layoutY="320.0" prefHeight="21.0" prefWidth="470.0" textFill="#ff1c1c">
+            <Label fx:id="lblNumeroUniversidades" layoutX="184.0" layoutY="320.0" prefHeight="21.0" prefWidth="470.0" textFill="#54bf3c">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label fx:id="lblPrecioInferior" layoutX="183.0" layoutY="351.0" prefHeight="21.0" prefWidth="470.0" textFill="#ff1c1c">
+            <Label fx:id="lblPrecioInferior" layoutX="183.0" layoutY="351.0" prefHeight="21.0" prefWidth="470.0" textFill="#54bf3c">
                <font>
                   <Font size="15.0" />
                </font>

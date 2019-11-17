@@ -36,8 +36,9 @@ public class ManageResidenciasEscolares {
 				this.uriBD = uriBD;
 				this.user = user;
 				this.password = password;
-				this.typeConex = typeConex;
-				this.connection = DriverManager.getConnection("jdbc:mysql://".concat(uriBD), user, password);
+				
+				Class.forName("com.mysql.cj.jdbc.Driver"); 			
+				this.connection = DriverManager.getConnection("jdbc:mysql://".concat(uriBD).concat("?serverTimezone=GMT") , user, password);
 				if(!connection.isClosed()) {
 					System.out.println("Conexión establecida");
 					conectado = true;
@@ -55,7 +56,7 @@ public class ManageResidenciasEscolares {
 			}
 			
 			
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			System.out.println("Problema en la conexión");
 			e.printStackTrace();
 		}
@@ -268,8 +269,8 @@ public class ManageResidenciasEscolares {
 			
 		} catch (SQLException e) {
 			System.out.println("Problema en la inserción");
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			//e.printStackTrace();
 		}
 		
 		return insertado;
@@ -627,8 +628,8 @@ public class ManageResidenciasEscolares {
 			
 		} catch (SQLException e) {
 			System.out.println("Problema en la ejecución del procedimiento");
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			//e.printStackTrace();
 		}
 		
 		return insertado;

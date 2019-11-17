@@ -137,7 +137,7 @@ public class RegistrarResidenciaProcController implements Initializable {
 						Alert alerta = new Alert(AlertType.ERROR);
 						alerta.setTitle("Acceso BD");
 						alerta.setHeaderText("Problema en la inserción");
-						alerta.setContentText("No se ha insertado la residencia, asegurate de que la universidad exista");
+						alerta.setContentText("No se ha insertado la residencia, asegurate de introducir un precio correcto");
 						alerta.showAndWait();
 						model.setTxtNombreResidencia("");
 						model.setTxtPrecioMensual("");

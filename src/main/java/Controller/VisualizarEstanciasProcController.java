@@ -102,8 +102,10 @@ public class VisualizarEstanciasProcController implements Initializable {
 				tableEstancias.setVisible(true);
 				observableListaAlojamiento = FXCollections.observableArrayList(lista);
 				this.tableEstancias.setItems(observableListaAlojamiento);
+				model.setLblTiempoHospedado("");
 			}else {
 				tableEstancias.setVisible(false);
+				model.setLblTiempoHospedado("");
 				Alert alerta = new Alert(AlertType.ERROR);
 				alerta.setTitle("Acceso BD");
 				alerta.setHeaderText("No se han encontrado coincidencias");
@@ -129,12 +131,14 @@ public class VisualizarEstanciasProcController implements Initializable {
 			if(tiempoHospedado>0) {
 				model.setLblTiempoHospedado("Meses hospedado " +  String.valueOf(tiempoHospedado));
 	     	}else {
+	     		model.setLblTiempoHospedado("");
+				tableEstancias.setVisible(false);
 	     		Alert alerta = new Alert(AlertType.ERROR);
 				alerta.setTitle("Acceso BD");
 				alerta.setHeaderText("No se han encontrado coincidencias");
 				alerta.setContentText("Revisa que el DNI sea correcto");
-				alerta.showAndWait();  
-				model.setLblTiempoHospedado("");
+				alerta.showAndWait();  				
+				
 	     	}			
 		} catch (Exception e) {
 			// TODO: handle exception
