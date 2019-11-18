@@ -1,12 +1,18 @@
 package other.classes;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.ArrayList;
+
+import javax.xml.crypto.URIDereferencer;
+
+import com.mysql.cj.xdevapi.Type;
 
 
 public class ManageResidenciasEscolares {
@@ -16,8 +22,7 @@ public class ManageResidenciasEscolares {
 	private String user;
 	private String password;
 	char typeConex;
-	
-	
+		
 	/**Abre la conexion Insertando los parametros:
 	 * @param uriBD
 	 * @param user
@@ -36,6 +41,7 @@ public class ManageResidenciasEscolares {
 				this.uriBD = uriBD;
 				this.user = user;
 				this.password = password;
+				this.typeConex = typeConex;
 				
 				Class.forName("com.mysql.cj.jdbc.Driver"); 			
 				this.connection = DriverManager.getConnection("jdbc:mysql://".concat(uriBD).concat("?serverTimezone=GMT") , user, password);
@@ -45,7 +51,21 @@ public class ManageResidenciasEscolares {
 				}
 				
 				break;
-			case  'b': //BD en oracle
+			case  'b': //BD en sql server
+				
+				this.uriBD = uriBD;
+				this.user = user;
+				this.password = password;
+				this.typeConex = typeConex;
+				 			        
+			        	 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+						//Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+			           // this.connection = DriverManager.getConnection("jdbc:sqlserver://DESKTOP-Q6V791E\\SQLEXPRESS;databaseName=bdResidenciasEscolares;user=user;password=user");
+						this.connection = DriverManager.getConnection("jdbc:sqlserver://" + uriBD + ";user=" + user + ";password=" + password); 
+						
+			            System.out.println("Conexion Exitosa");			            
+						conectado = true;			         
+			       
 				
 			   break;
 			   
@@ -243,8 +263,7 @@ public class ManageResidenciasEscolares {
 			
 			if(connection.isClosed()) {
 				abrirConexion(uriBD, user, password, typeConex);
-			}
-							
+			}					
 			
 			String sql = "INSERT INTO residencias(nomResidencia, codUniversidad, precioMensual, comedor) VALUES(?, ?, ?, ?)"; //Creamos la setencia preparada			
 			PreparedStatement preparedStatement = connection.prepareStatement(sql); //Cargamos la sentencia
@@ -574,69 +593,50 @@ public class ManageResidenciasEscolares {
 	 * insertado = false si no
 	 */	
 	public boolean procedimientoInsertar(Residencia r) {
-		
 
 		boolean insertado = false;
-		
+
 		try {
-			
-			if(connection.isClosed()) {
+
+			if (connection.isClosed()) {
 				abrirConexion(uriBD, user, password, typeConex);
 			}
-							
-			String sql = "CALL insertarResidencia (?, ?, ?, ?, @v_existe, @v_insertar)";
-			PreparedStatement preparedStatement = connection.prepareStatement(sql); //Cargamos la sentencia
 			
-			//Rellenamos sentencia preparada
-		
-				preparedStatement.setString(1, r.getNombreResidencia());		
-				preparedStatement.setString(2, r.getCodUniversidad());			
-				preparedStatement.setInt(3, r.getPrecioMensual());		
-				preparedStatement.setBoolean(4, r.isComedor());
+			String sql = "";
 			
-			   int x = preparedStatement.executeUpdate();
-			 				
-				//Aqui los select del procedimiento
-				
-				String consulta = "SELECT @v_existe, @v_insertar";
-				Statement statement = connection.prepareCall(consulta);
-				ResultSet resultado = statement.executeQuery(consulta);
+			switch (typeConex) {
+			case 'a':
+				sql = "CALL insertarResidencia (?, ?, ?, ?, ?, ?)";
+				break;
 
-			int existeUniversidad = 0;
-			int insertar = 0;
+			case 'b':
+				sql = "exec insertarResidencia ?, ?, ?, ?, ?, ?";
+				break;
+			}
+						
+			CallableStatement callableStatement = connection.prepareCall(sql);
+			callableStatement.setString(1, r.getNombreResidencia());
+			callableStatement.setString(2, r.getCodUniversidad());
+			callableStatement.setInt(3, r.getPrecioMensual());
+			callableStatement.setBoolean(4, r.isComedor());
+			callableStatement.registerOutParameter(5, Types.INTEGER);
+			callableStatement.registerOutParameter(6, Types.INTEGER);
+			callableStatement.execute();
+
+			int existe = callableStatement.getInt(5);
+			int insertar = callableStatement.getInt(6);
 			
-			//Recorremos el select
-			while (resultado.next()) {
-				existeUniversidad = (resultado.getInt(1));
-				insertar = (resultado.getInt(2));
+			if(existe>0 && insertar>0) {
+				insertado = true; 
 			}
 			
-			if(existeUniversidad==1 && insertar ==1) {
-				insertado = true;
-				System.out.println("Existe la universidad y se ha insertado la residencia");
-			}else {
-				insertado = false; 
-				System.out.println("No existe la universidad, no se ha insertado la residencia");
-			}
-							   
-			//Cerramos conexion y liberamos recursos
-			   connection.close();
-			   preparedStatement.close(); 
-			   statement.close();
-			
-			
-			
-		} catch (SQLException e) {
-			System.out.println("Problema en la ejecución del procedimiento");
-			
-			//e.printStackTrace();
+		} catch (Exception e) {
+
 		}
-		
+
 		return insertado;
-				
-		
+
 	}
-	
 	/**
 	 * Ejecuta un procedimiento almacenado en la db
 	 * añade a una lista los alojamientos coincidentes
@@ -655,11 +655,21 @@ public class ManageResidenciasEscolares {
 			if(connection.isClosed()) {
 				abrirConexion(uriBD, user, password, typeConex);
 			}
-							
-			String sql = "CALL listarEstancias (?)";
-			PreparedStatement preparedStatement = connection.prepareStatement(sql); //Cargamos la sentencia				
-			preparedStatement.setString(1, dni);		
-			ResultSet resultado = preparedStatement.executeQuery();
+			
+			String sql ="";
+			switch (typeConex) {
+			case 'a':
+				sql = "CALL listarEstancias (?)";
+				break;
+
+			case 'b':
+				sql = "exec listarEstancias ?";
+				break;
+			}
+										
+			CallableStatement callableStatement = connection.prepareCall(sql);
+			callableStatement.setString(1, dni);	
+			ResultSet resultado = callableStatement.executeQuery();
 			
 			while(resultado.next()) {
 				Alojamiento a = new Alojamiento();
@@ -675,12 +685,10 @@ public class ManageResidenciasEscolares {
 			if(listaAlojamientos!=null) {
 				System.out.println("Se han añadido alojamientos a la lista");
 			}
-		
-
-							   
+									   
 			//Cerramos conexion y liberamos recursos
 			   connection.close();
-			   preparedStatement.close(); 
+			   callableStatement.close(); 
 			 
 		
 		} catch (SQLException e) {
@@ -712,42 +720,41 @@ public class ManageResidenciasEscolares {
 			if(connection.isClosed()) {
 				abrirConexion(uriBD, user, password, typeConex);
 			}
-							
-			String sql = "CALL cantidadResidencias(?, ?, @v_numResidencias, @v_precioInferior)";
-			PreparedStatement preparedStatement = connection.prepareStatement(sql); //Cargamos la sentencia
+			
+			String sql = ""; 
+			
+			switch (typeConex) {
+			case 'a':
+			sql = "CALL cantidadResidencias(?, ?, ?, ?)";
+				break;
+			case 'b':
+				sql = "exec cantidadResidencias ?, ?, ?, ?";
+				break;
+
+			
+			}
+			
+			
+			CallableStatement callableStatement = connection.prepareCall(sql); //Cargamos la sentencia
 			
 			//Rellenamos sentencia preparada
 		
-				preparedStatement.setString(1, nombreUniversidad);		
-				preparedStatement.setInt(2, precio);		
-							
-			    preparedStatement.executeUpdate();
-			 				
-				//Aqui los select del procedimiento
-				
-				String consulta = "SELECT @v_numResidencias, @v_precioInferior";
-				Statement statement = connection.prepareCall(consulta);
-				ResultSet resultado = statement.executeQuery(consulta);
-
-			int numResidencias = 0;
-			int precioInferior = 0;
-			
-			//Recorremos el select
-			while (resultado.next()) {			
-				numResidencias = (resultado.getInt(1));
-				precioInferior = (resultado.getInt(2));
-			}
-			
-			devolver[0] = numResidencias;
-			devolver[1] = precioInferior;
+				callableStatement.setString(1, nombreUniversidad);		
+				callableStatement.setInt(2, precio);
+				callableStatement.registerOutParameter(3, Types.BIGINT);
+				callableStatement.registerOutParameter(4, Types.BIGINT);
+				callableStatement.execute();				
+		
+			    devolver[0] = callableStatement.getInt(3);
+			    devolver[1] = callableStatement.getInt(4);
 			
 			System.out.println("La universidad " + nombreUniversidad + " tiene " + devolver[0] + " residencias");
-			System.out.println("La universidad " + nombreUniversidad + " tiene " + precioInferior + " residencias a un precio inferior a " + precio);
+			System.out.println("La universidad " + nombreUniversidad + " tiene " + devolver[1] + " residencias a un precio inferior a " + precio);
 							   
 			//Cerramos conexion y liberamos recursos
 			   connection.close();
-			   preparedStatement.close(); 
-			   statement.close();
+			   callableStatement.close(); 
+			   
 			
 			
 			
@@ -776,7 +783,19 @@ public class ManageResidenciasEscolares {
 				abrirConexion(uriBD, user, password, typeConex);
 			}
 			
-			String sql = "SELECT tiempoHospedado(?)";
+			String sql = "";
+			
+			switch (typeConex) {
+			case 'a':
+				sql = "SELECT tiempoHospedado(?)";
+				break;
+
+			case 'b':
+				sql = "SELECT dbo.tiempoHospedado (?)";
+				break;
+			}
+			
+			
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, dni);
 			ResultSet resultado = preparedStatement.executeQuery();

@@ -62,8 +62,7 @@ public class CantidadResidenciasProcController implements Initializable {
 	
 
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		
+	public void initialize(URL location, ResourceBundle resources) {		
 		//Bindeos
 		model.listaComboUniversidadProperty().bindBidirectional(cmbUniversidad.itemsProperty());
 		model.universidadSeleccionadaProperty().bind(cmbUniversidad.getSelectionModel().selectedItemProperty());

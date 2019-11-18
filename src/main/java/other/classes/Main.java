@@ -11,7 +11,8 @@ public class Main {
 		mre.abrirConexion("localhost/bdresidenciasescolares", "root","", 'a');
 		
 //		ArrayList<ResidenciaAmpliada> lista = mre.listarResidenciasAmpliada();
-//		
+		//mre.abrirConexion("localhost/bdresidenciasescolares", "root","", 'a');
+		mre.abrirConexion("localhost/bdresidenciasescolares", "root","", 'b');
 //		for(int i=0; i<lista.size();i++) {
 //			System.out.println(lista.get(i).getPrecioMensual());
 //		}
@@ -30,8 +31,8 @@ public class Main {
 	 //mre.actualizarResidencia(r);
 	// mre.procedimientoInsertar(r);
 	//mre.procedimientoCantidadResidenciasPrecio("Las Palmas", 200);	
-	int z =  mre.funcionTiempoHospedado("54296710C");
-	System.out.println(z);
+	//int z =  mre.funcionTiempoHospedado("54296710C");
+	//System.out.println(z);
 	 
 	// mre.buscarResidencia("Duerme Xalentito");
 	//mre.procedimientoVisualizarEstancias("54296710C");

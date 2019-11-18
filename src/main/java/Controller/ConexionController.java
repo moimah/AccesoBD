@@ -136,9 +136,9 @@ public class ConexionController implements Initializable {
 			typeConex = 'a';	
 			System.out.println("BD seleccionada: Mysql");
 			break;
-		case "Oracle":
+		case "SQL server":
 			typeConex = 'b';	
-			System.out.println("BD seleccionada Oracle");
+			System.out.println("BD seleccionada SQL Server");
 			break;
 		case "Base":
 			typeConex = 'c';	
@@ -191,7 +191,7 @@ public class ConexionController implements Initializable {
 	public void addBDslista() {
 		listaTiposBD = new ArrayList<String>();
 		listaTiposBD.add("Mysql");
-		listaTiposBD.add("Oracle");
+		listaTiposBD.add("SQL server");
 		listaTiposBD.add("Base");
 		listCombo = FXCollections.observableArrayList(listaTiposBD);
 		model.setListaCombo(listCombo);
