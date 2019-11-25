@@ -2,11 +2,9 @@ package App_main;
 
 public class Main {
 
-	public static void main(String[] args) {
-		
+	public static void main(String[] args) {		
 		AppConexion.main(args);
-		//RootAapp.main(args);
-
+		
 	}
 
 }

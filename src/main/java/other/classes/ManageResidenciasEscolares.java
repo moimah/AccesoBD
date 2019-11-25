@@ -10,11 +10,6 @@ import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
 
-import javax.xml.crypto.URIDereferencer;
-
-import com.mysql.cj.xdevapi.Type;
-
-
 public class ManageResidenciasEscolares {
 	
 	private Connection connection;
@@ -46,7 +41,7 @@ public class ManageResidenciasEscolares {
 				Class.forName("com.mysql.cj.jdbc.Driver"); 			
 				this.connection = DriverManager.getConnection("jdbc:mysql://".concat(uriBD).concat("?serverTimezone=GMT") , user, password);
 				if(!connection.isClosed()) {
-					System.out.println("Conexión establecida");
+					//System.out.println("Conexión establecida");
 					conectado = true;
 				}
 				
@@ -57,22 +52,44 @@ public class ManageResidenciasEscolares {
 				this.user = user;
 				this.password = password;
 				this.typeConex = typeConex;
-				 			        
-			        	 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-						//Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-			           // this.connection = DriverManager.getConnection("jdbc:sqlserver://DESKTOP-Q6V791E\\SQLEXPRESS;databaseName=bdResidenciasEscolares;user=user;password=user");
-						this.connection = DriverManager.getConnection("jdbc:sqlserver://" + uriBD + ";user=" + user + ";password=" + password); 
-						
+				
+				try {
+					 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");						
+						//this.connection = DriverManager.getConnection("jdbc:sqlserver://" + uriBD + ";user=" + user + ";password=" + password); 	
+						this.connection = DriverManager.getConnection("jdbc:sqlserver://" + uriBD + ";user=" + user + ";password=" + password);
 			            System.out.println("Conexion Exitosa");			            
-						conectado = true;			         
+						conectado = true;
+					
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+				 			        
+			        				         
 			       
 				
 			   break;
 			   
-			case 'c': //BD en Oracle
+			case 'c': //BD en Base
+				
+				System.out.println("Ha seleccionado C");
+				
+
+				this.uriBD = uriBD;
+				this.user = user;
+				this.password = password;
+				this.typeConex = typeConex;
+				 			        
+			        	 Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");		  
+												
+			        	 //this.connection = DriverManager.getConnection("jdbc:ucanaccess://database/bdResidenciasEscolares.accdb");
+						this.connection = DriverManager.getConnection("jdbc:ucanaccess://"+ uriBD);
+						
+						
+			            System.out.println("Conexion Exitosa");			            
+						conectado = true;		
 				
 				
-			default: System.out.println("No se ha seleccionado conexión");
+			
 			}
 			
 			
@@ -110,12 +127,21 @@ public class ManageResidenciasEscolares {
 					}
 					
 					break;
-				case  'b': //BD en oracle
+				case  'b': //BD en SQL server							
+					this.uriBD = uriBD;
+					this.user = user;
+					this.password = password;
+					this.typeConex = typeConex;
+					this.connection =  DriverManager.getConnection("jdbc:sqlserver://" + uriBD + ";user=" + user + ";password=" + password);
+					if(!connection.isClosed()) {
+						System.out.println("Conexión establecida");
+						conectado = true;
+					}
 					
 				   break;
 				   
-				case 'c': //BD en Oracle
-					
+				case 'c': //BD en Access
+					this.connection =  DriverManager.getConnection("jdbc:ucanaccess://" + uriBD );
 					
 				default: System.out.println("No se ha seleccionado conexión");
 				}
@@ -272,7 +298,7 @@ public class ManageResidenciasEscolares {
 		
 				preparedStatement.setString(1, r.getNombreResidencia());		
 				preparedStatement.setString(2, r.getCodUniversidad());			
-				preparedStatement.setInt(3, r.getPrecioMensual());		
+				preparedStatement.setInt(3, r.getPrecioMensual());	
 				preparedStatement.setBoolean(4, r.isComedor());
 			
 			   int x = preparedStatement.executeUpdate();
@@ -289,7 +315,7 @@ public class ManageResidenciasEscolares {
 		} catch (SQLException e) {
 			System.out.println("Problema en la inserción");
 			
-			//e.printStackTrace();
+			e.printStackTrace();
 		}
 		
 		return insertado;
@@ -379,7 +405,7 @@ public class ManageResidenciasEscolares {
 			
 		}catch (SQLException e) {
 			System.out.println("Problema en el borrado");			
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		
 		return eliminado; 
@@ -467,7 +493,7 @@ public class ManageResidenciasEscolares {
 			
 			
 		}catch (SQLException e) {
-			System.out.println("Problema en el borrado");			
+			System.out.println("Problema en la modificación");			
 			e.printStackTrace();
 		}
 		

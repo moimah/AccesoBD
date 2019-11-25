@@ -17,7 +17,7 @@ public class AppConexion extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		controller = new ConexionController();		
 		Scene scene = new Scene(controller.getView(), 800, 600);		
-		this.primaryStage.setTitle("HolaMundo con FXML");
+		this.primaryStage.setTitle("AccesoBD - Moises Abreu");
 		this.primaryStage.setScene(scene);
 		this.primaryStage.show();		
 		controller.injectApp(this); //Inyectamos el APP en el controller

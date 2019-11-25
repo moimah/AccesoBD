@@ -11,7 +11,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import App_main.RootAapp;
+
 import Model.EliminarResidenciaModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

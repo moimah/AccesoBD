@@ -5,14 +5,19 @@ import java.util.ArrayList;
 public class Main {
 
 	public static void main(String[] args) {
-		
+		System.out.println("prueba");
+	
 		ManageResidenciasEscolares mre = new ManageResidenciasEscolares();
 		//mre.cerrarConexion();
-		mre.abrirConexion("localhost/bdresidenciasescolares", "root","", 'a');
+		mre.abrirConexion("C:\\database\\bdResidenciasEscolares.accdb", "","", 'c');
+		
+		
+		//C:\Users\moimah\Documents\Bases de datos
+		//W:\Java\AED\AccesoBD\src\main\java
 		
 //		ArrayList<ResidenciaAmpliada> lista = mre.listarResidenciasAmpliada();
 		//mre.abrirConexion("localhost/bdresidenciasescolares", "root","", 'a');
-		mre.abrirConexion("localhost/bdresidenciasescolares", "root","", 'b');
+	//	mre.abrirConexion("localhost/bdresidenciasescolares", "root","", 'b');
 //		for(int i=0; i<lista.size();i++) {
 //			System.out.println(lista.get(i).getPrecioMensual());
 //		}
@@ -23,10 +28,10 @@ public class Main {
 //			System.out.println(listaUni.get(i).getNombreUniversidad());
 //		}
 		
-//	 Residencia r = new Residencia(19, "Moises", "SPA002", 699, true);
+	 Residencia r = new Residencia(19, "Moises", "SPA002", 699, true);
 	 
-//	 mre.insertarResidencia(r);
-//	 mre.comprobarEstancias(r);
+	// mre.insertarResidencia(r);
+	 //mre.comprobarEstancias(r);
 //	mre.eliminarResidencia(r);
 	 //mre.actualizarResidencia(r);
 	// mre.procedimientoInsertar(r);

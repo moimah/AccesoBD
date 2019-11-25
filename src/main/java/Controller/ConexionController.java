@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import App_main.AppConexion;
-import App_main.RootAapp;
+
 import Model.ConexionModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -140,9 +140,9 @@ public class ConexionController implements Initializable {
 			typeConex = 'b';	
 			System.out.println("BD seleccionada SQL Server");
 			break;
-		case "Base":
+		case "Access":
 			typeConex = 'c';	
-			System.out.println("Bd seleccionada Base");
+			System.out.println("Bd seleccionada Access");
 			break;
 
 		default:
@@ -166,12 +166,12 @@ public class ConexionController implements Initializable {
 				alerta.showAndWait();
 		 }else {
 			 //TODO aqui abrir panel principal "1" si la bd es mysql/oracle "2" si es base
-			 	RootControllerA controller = new RootControllerA();		
+			 	RootControllerA controller = new RootControllerA(typeConex);		
 			 	controller.setParametrosConexion(uriBD, user, password, typeConex);
 			 
 				Scene scene = new Scene(controller.getView(), 1000, 600);
 				Stage stage = new Stage();			
-				stage.setTitle("HolaMundo con FXML");
+				stage.setTitle("AccesoBD - Moises Abreu");
 				stage.setScene(scene);
 				stage.setMinHeight(600);
 				stage.setMinWidth(1000);
@@ -192,7 +192,7 @@ public class ConexionController implements Initializable {
 		listaTiposBD = new ArrayList<String>();
 		listaTiposBD.add("Mysql");
 		listaTiposBD.add("SQL server");
-		listaTiposBD.add("Base");
+		listaTiposBD.add("Access");
 		listCombo = FXCollections.observableArrayList(listaTiposBD);
 		model.setListaCombo(listCombo);
 				

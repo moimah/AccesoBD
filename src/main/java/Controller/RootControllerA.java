@@ -50,7 +50,8 @@ public class RootControllerA implements Initializable{
 	
 	
 	//Constructor
-	public RootControllerA() throws IOException {
+	public RootControllerA(char typeConex) throws IOException {
+		this.typeConex = typeConex; 		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/RootAView.fxml"));
 		loader.setController(this);
 		loader.load();
@@ -103,9 +104,18 @@ public class RootControllerA implements Initializable{
 		tabRegistrarResidencias.setContent(viewRegistrarResidencias);
 		tabEliminarResidencia.setContent(viewEliminarResidencias);
 		tabModificarResidencia.setContent(viewModificarResidencias);
-		tabVisualizarEstanciasProc.setContent(viewVisualizarEstanciasProc);
-		tabRegistrarProc.setContent(viewRegistrarResidenciasProc);
-		tabCantidadResidenciasProc.setContent(viewCantidadResidenciasProc);
+		
+		if(typeConex != 'c') {			
+			tabVisualizarEstanciasProc.setContent(viewVisualizarEstanciasProc);
+			tabRegistrarProc.setContent(viewRegistrarResidenciasProc);
+			tabCantidadResidenciasProc.setContent(viewCantidadResidenciasProc);
+		}else {
+			tabVisualizarEstanciasProc.setDisable(true);
+			tabRegistrarProc.setDisable(true);
+			tabCantidadResidenciasProc.setDisable(true);
+		}
+		
+		
 		
 		//Inyeccion de mainController a los subcontrollers
 		
